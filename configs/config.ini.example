@@ -1,0 +1,23 @@
+[Environment]
+width = 30
+height = 30
+random_start_end = False
+print_type = ship
+sequential = True
+print_config = False
+
+[Ship]
+num_ships = 1
+sense_radius = 10
+comms_radius = 3
+missile_range = 6
+missile_count = 1
+missile_accuracy = 0.8
+jam_radius = 6
+jam_time = 3
+
+[Drone]
+num_drones = 2
+detection_radius = 0
+speed = 1
+pattern = still

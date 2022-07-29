@@ -1,0 +1,53 @@
+digraph G {
+
+graph [
+rankdir = "BT"
+];
+
+  "inputs_map" [label = " Map Input | 11x11x5" shape = "record" ];
+  "inputs_goal" [label = "Goal Input | 8" shape = "record" ];
+
+  "layer1" [label="Conv2d | filters 128 | kernel size (3, 3) | strides (1, 1) | activation swish " shape="record"];
+  "layer2" [label="Conv2d | filters 128 | kernel size (3, 3) | strides (1, 1) | activation swish " shape="record"];
+  "layer3" [label="Max Pooling | pool size (2, 2) " shape="record"];
+  "layer4" [label="Conv2d | filters 128 | kernel size (3, 3) | strides (1, 1) | activation swish " shape="record"];
+  "layer5" [label="Conv2d | filters 64 | kernel size (3, 3) | strides (1, 1) | activation swish " shape="record"];
+  "layer6" [label="Max Pooling | pool size (2, 2) " shape="record"];
+  "layer7" [label="Conv2d | filters 64 | kernel size (3, 3) | strides (1, 1) | activation swish " shape="record"];
+  "layer_map_flatten" [label="Flatten" shape="record"];
+
+  "layer_concatenation" [label="Concatenate" shape="record"];
+
+  "layer8" [label="Dense | 64 | activation swish " shape="record"];
+  "layer9" [label="Dense | 32 | activation swish " shape="record"];
+  "layer_vectors_flatten" [label="Flatten" shape="record"];
+
+  "layer10" [label="Dense | 128 | activation swish " shape="record"];
+  "layer11" [label="Dense | 128 | activation swish " shape="record"];
+  "layer12" [label="Dense | 64 | activation swish " shape="record"];
+
+  "policy_output" [label="Output | 16" shape="record"];
+
+  inputs_map -> layer1
+  layer1 -> layer2
+  layer2 -> layer3
+  layer3 -> layer4
+  layer4 -> layer5
+  layer5 -> layer6
+  layer6 -> layer7
+  layer7 -> layer_map_flatten
+
+  inputs_goal -> layer8
+  layer8 -> layer9
+  layer9 -> layer_vectors_flatten
+
+  layer_vectors_flatten -> layer_concatenation
+  layer_map_flatten -> layer_concatenation
+
+  layer_concatenation -> layer10
+  layer10 -> layer11
+  layer11 -> layer12
+
+  layer12 -> policy_output
+
+}

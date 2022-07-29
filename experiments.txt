@@ -1,0 +1,56 @@
+Experiment 2.1
+- reducing reward for sag to 100 to prioritize the ddg winning
+- adding jamming effector
+- allowing the sag to get caught
+* Trained very well, got to 93% win rate
+* When trained on larger map with 10 drones, didn't do as well
+
+Experiment 2.2
+- increasing map to 20x20
+- increased to 5 drones
+
+Experiment 2.3
+- going back to a 10x10 grid with 3 drones
+- reducing the jamming distance to 3 to be same as sensing
+
+Experiment 2.4
+- performing gradient clipping to unit norm using L2 Norm of magnitude 2.0
+- used experiment_2.3_config.ini
+- vast number of losses comes from when the drone lands directly on top of the DDG
+- max safe 98 at 99000 running average score 1016.7549999999989
+
+Experiment 2.5
+- removing the missile information from the input
+- used experiment_2.3_config.ini
+- max score 1068.02 at 101000 with 98 safe and running average score 1023.852999999997
+
+Experiment 2.6
+- adding prioritized experience replay
+- was very slow, would definitely need to refactor the Memory system
+- did not seem to change the final 100 test
+- the DDG and SAG loss stayed quite low
+
+Experiment 2.7
+- another run like 2.5 but went out 250000 games
+- max safe was 97
+- had much higher moving average
+
+Experiment 2.8
+- reducing the network size (SmallRvBLearner)
+- performed significantly worse
+
+Experiment 2.9
+- training with a medium size network (MediumRvBLearner)
+- performed better than the small network but not as good as the larger
+
+Experiment 2.10
+- reduced the batch size to 128
+- takes much longer to converge
+- seems to have an even better 10 moving average once over 200k, but previous models did not train that long
+- it did have a run with 100 safe
+
+
+
+Experiments to perform
+* How does it do with an LSTM layer?
+* How does it do without observation layer 1 (self) and 4 (unknown)?
